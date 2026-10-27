@@ -155,19 +155,97 @@ def artist():
             return
 
 
+# ---------- images: a few never-seen pictures from open collections, one dealt a day ----------
+images = []
+SEEN_FILE = "found/seen-images.txt"
+try:
+    SEEN = set(open(SEEN_FILE).read().split())
+except FileNotFoundError:
+    SEEN = set()
+
+IMG_Q = ["doll", "dolls house", "paper doll", "toy", "toy theatre", "puppet", "sticker", "scrapbook", "valentine",
+         "trade card", "sampler", "embroidery", "ribbon", "hair ornament", "fan", "miniature", "pattern book",
+         "lenticular", "souvenir", "packaging", "board game", "horse", "cat", "witch", "charm", "amulet",
+         "ballet", "diary", "bedroom", "department store", "shop window", "railway", "train", "stationery"]
+
+def add_image(url, title, source, link):
+    if not url or url in SEEN or any(i["src"] == url for i in images):
+        return False
+    images.append({"src": url, "title": clean(title)[:200], "source": source, "url": link})
+    return True
+
+def img_aic():
+    q = rng.choice(IMG_Q)
+    url = "https://api.artic.edu/api/v1/artworks/search?" + urllib.parse.urlencode(
+        {"q": q, "limit": 40, "page": rng.randint(1, 3), "fields": "id,title,artist_title,date_display,image_id",
+         "query[term][is_public_domain]": "true"})
+    data = [o for o in json.loads(get(url, headers={"AIC-User-Agent": UA["User-Agent"]})).get("data", []) if o.get("image_id")]
+    for o in rng.sample(data, min(len(data), 6)):
+        t = ", ".join(x for x in [o.get("title"), o.get("artist_title"), o.get("date_display")] if x)
+        if add_image(f"https://www.artic.edu/iiif/2/{o['image_id']}/full/843,/0/default.jpg", t,
+                     "Art Institute of Chicago", f"https://www.artic.edu/artworks/{o['id']}"):
+            return
+
+def img_va():
+    q = rng.choice(IMG_Q)
+    base = "https://api.vam.ac.uk/v2/objects/search?" + urllib.parse.urlencode({"q": q, "page_size": 50, "images_exist": 1})
+    info = json.loads(get(base))
+    pages = max(1, min(int(info.get("info", {}).get("pages", 1)), 20))
+    recs = [r for r in json.loads(get(base + f"&page={rng.randint(1, pages)}")).get("records", []) if r.get("_primaryImageId")]
+    for r in rng.sample(recs, min(len(recs), 6)):
+        t = ", ".join(x for x in [r.get("_primaryTitle") or r.get("objectType"), r.get("_primaryDate"), r.get("_primaryPlace")] if x)
+        if add_image(f"https://framemark.vam.ac.uk/collections/{r['_primaryImageId']}/full/!800,800/0/default.jpg", t,
+                     "V&A collection", f"https://collections.vam.ac.uk/item/{r.get('systemNumber','')}/"):
+            return
+
+def img_wellcome():
+    q = rng.choice(IMG_Q)
+    base = "https://api.wellcomecollection.org/catalogue/v2/images?" + urllib.parse.urlencode({"query": q, "pageSize": 50})
+    info = json.loads(get(base))
+    pages = max(1, min(int(info.get("totalPages", 1)), 10))
+    res = json.loads(get(base + f"&page={rng.randint(1, pages)}")).get("results", [])
+    for im in rng.sample(res, min(len(res), 6)):
+        thumb = (im.get("thumbnail") or {}).get("url", "")
+        if not thumb.endswith("/info.json"):
+            continue
+        src = thumb[:-len("/info.json")] + "/full/!800,800/0/default.jpg"
+        w = im.get("source") or {}
+        if add_image(src, w.get("title", ""), "Wellcome Collection", f"https://wellcomecollection.org/works/{w.get('id','')}"):
+            return
+
+COMMONS_CATS = ["Paper dolls", "Dollhouses", "Lenticular printing", "Stickers", "Shop windows", "Toy packaging",
+                "Department stores", "Children's bedrooms", "Blythe (doll)", "Sticker albums", "Toy catalogs",
+                "Sewing patterns", "Embroidery samplers", "Plastic toys", "Dollhouse miniatures", "Rubber stamps",
+                "Erasers", "Pencil cases", "Board games", "Trading cards", "Ballet shoes", "Rocking horses"]
+def img_commons():
+    for cat in rng.sample(COMMONS_CATS, 4):
+        q = "https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode(
+            {"action": "query", "generator": "categorymembers", "gcmtitle": "Category:" + cat, "gcmtype": "file",
+             "gcmlimit": 200, "prop": "imageinfo", "iiprop": "url|mime", "iiurlwidth": 800, "format": "json"})
+        pages = list((json.loads(get(q)).get("query") or {}).get("pages", {}).values())
+        pages = [p for p in pages if p.get("imageinfo") and p["imageinfo"][0].get("mime") in ("image/jpeg", "image/png")]
+        for p in rng.sample(pages, min(len(pages), 6)):
+            ii = p["imageinfo"][0]
+            title = re.sub(r"^File:|\.(jpe?g|png)$", "", p["title"], flags=re.I).replace("_", " ")
+            if add_image(ii.get("thumburl") or ii["url"], title, "Wikimedia Commons · " + cat, ii.get("descriptionurl", "")):
+                return
+
+
 for fn in (nyt, va, wellcome, aic, festival):
     safe(fn)
-for fn in (medium, artist):
+for fn in (medium, artist, img_aic, img_va, img_wellcome, img_commons, img_commons):
     try:
         fn(); print(f"ok   {fn.__name__}")
     except Exception as e:
         print(f"FAIL {fn.__name__}: {e!r}", file=sys.stderr)
 
 rng.shuffle(cards)
-out = {"date": TODAY.isoformat(), "made": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cards": cards, "ways": ways}
+out = {"date": TODAY.isoformat(), "made": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cards": cards, "ways": ways, "images": images}
 os.makedirs("found", exist_ok=True)
 with open(f"found/{TODAY.isoformat()}.js", "w") as f:
     f.write("window.DAILY_FOUND = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
+with open(SEEN_FILE, "a") as f:
+    f.writelines(i["src"] + "\n" for i in images)
 print(f"wrote found/{TODAY.isoformat()}.js with {len(cards)} cards")
 if not cards:
     sys.exit(1)

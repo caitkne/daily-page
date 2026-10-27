@@ -102,8 +102,10 @@ textarea.out{width:100%;box-sizing:border-box;background:transparent;border:1px 
 .card .title{grid-column:2}
 .card .src{grid-column:2;color:var(--dim);font-size:14px}
 .card .body{grid-column:2;margin:2px 0 4px}
+.card .pic{grid-column:2;margin:4px 0 2px}
+.card .pic img{display:block;max-width:100%;max-height:60vh;height:auto;border:1px solid var(--dim)}
 .card .src a{color:inherit}
-@media (max-width:420px){.card{grid-template-columns:1fr}.card .title,.card .src,.card .body{grid-column:1}}
+@media (max-width:420px){.card{grid-template-columns:1fr}.card .title,.card .src,.card .body,.card .pic{grid-column:1}}
 .date{font-size:15px;letter-spacing:.12em;text-transform:uppercase}
 .note{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:3px 0}
 </style>
@@ -136,7 +138,7 @@ const FOUND_BASE='found/';
 const KEPT_REST=60;   // days before the same kept thing can come back
 const RETIRE_AT=3;    // a way rated "meh" this many times is retired
 
-let S={items:[],hist:{},tab:'today',loaded:false,flash:'',localOnly:false,found:{},fresh:{},foundState:{},notes:['','',''],armRedraw:false,editing:null,oldOpen:null};
+let S={items:[],hist:{},tab:'today',loaded:false,flash:'',localOnly:false,found:{},fresh:{},imgs:{},foundState:{},notes:['','',''],armRedraw:false,editing:null,oldOpen:null};
 
 /* ---------- storage: the page's own store; this device only if that is unavailable ---------- */
 let DB=null;
@@ -184,7 +186,7 @@ function loadFound(k){
 function loadFoundFile(k){
   const s=document.createElement('script');
   s.src=FOUND_BASE+k+'.js?v='+Math.floor(Date.now()/6e5);
-  s.onload=()=>{const d=window.DAILY_FOUND; if(d&&d.date===k&&Array.isArray(d.cards)&&d.cards.length){S.found[k]=d.cards;S.fresh[k]=Array.isArray(d.ways)?d.ways:[];S.foundState[k]='ok'} else S.foundState[k]='none'; delete window.DAILY_FOUND; render(true)};
+  s.onload=()=>{const d=window.DAILY_FOUND; if(d&&d.date===k&&Array.isArray(d.cards)&&d.cards.length){S.found[k]=d.cards;S.fresh[k]=Array.isArray(d.ways)?d.ways:[];S.imgs[k]=Array.isArray(d.images)?d.images:[];S.foundState[k]='ok'} else S.foundState[k]='none'; delete window.DAILY_FOUND; render(true)};
   s.onerror=()=>{S.foundState[k]='none'; render(true)};
   document.head.appendChild(s);
   setTimeout(()=>{if(S.foundState[k]==='loading'){S.foundState[k]='none';render(true)}},9000);
@@ -243,8 +245,15 @@ function pickFound(avoid){
   const c=p.filter(x=>x.text!==avoid); const f=rand(c.length?c:p);
   return {text:f.text,whole:f.whole||f.text,source:f.source||'',url:f.url||''};
 }
+function imagePool(){
+  const k=today(), y=yesterday();
+  if(S.foundState[k]==='ok'&&(S.imgs[k]||[]).length) return S.imgs[k];
+  if(S.foundState[y]==='ok'&&(S.imgs[y]||[]).length) return S.imgs[y];
+  return null;
+}
+function pickImage(avoid){const p=imagePool(); if(!p) return null; const c=p.filter(x=>x.src!==avoid); return Object.assign({},rand(c.length?c:p))}
 function makePage(k){
-  const h={found:pickFound(),kept:pickKept(k),notes:[],rating:0,t:Date.now()}; setWay(h,pickWay(k)); return h;
+  const h={found:pickFound(),image:pickImage(),kept:pickKept(k),notes:[],rating:0,t:Date.now()}; setWay(h,pickWay(k)); return h;
 }
 
 /* a day's page in the new shape (older briefs from before have no kept card) */
@@ -273,7 +282,9 @@ function cardsHtml(k,h,live){
     :`<p class="title dim">nothing kept yet</p><p class="src">add a noticing on the kept tab.</p>`;
   const way=w?`<p class="title wrap">${esc(w.name)}</p><p class="body wrap">${esc(w.text||'')}</p><p class="src wrap">${w.after?'after '+(w.url?`<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.after)}</a>`:esc(w.after)):''}${live&&w.fresh?' <button class="k small" data-act="keepway">keep this way</button>':''}${again('again-way')}</p>`
     :`<p class="title dim">no ways yet</p><p class="src">add one on the ways tab.</p>`;
-  return `<section class="blk">
+  const im=h.image;
+  const image=im?`<div class="pic"><a href="${esc(im.url||im.src)}" target="_blank" rel="noopener"><img src="${esc(im.src)}" alt="${esc(im.title||'image')}" loading="lazy"></a></div><p class="src wrap">${esc(im.title||'')}${im.title?' · ':''}${esc(im.source||'')}${again('again-image')}</p>`:'';
+  return `${image?`<section class="blk"><div class="card"><span class="lbl">image</span>${image}</div></section>`:''}<section class="blk">
     <div class="card"><span class="lbl">found</span>${found}</div></section>
   <section class="blk"><div class="card"><span class="lbl">kept</span>${kept}</div></section>
   <section class="blk"><div class="card"><span class="lbl">way</span>${way}</div></section>`;
@@ -284,6 +295,7 @@ function viewToday(){
   const k=today(), h=page(k);
   loadFound(k); if(S.foundState[k]==='none') loadFound(yesterday());
   if(h&&h.way&&!wayOf(h)){setWay(h,pickWay(k)); setTimeout(()=>putHist(k),0)}
+  if(h&&!h.image&&imagePool()){h.image=pickImage(); setTimeout(()=>putHist(k),0)}
   if(h&&!h.found&&foundPool()){const f=pickFound(); if(f){h.found=f; setTimeout(()=>putHist(k),0)}}
   const past=Object.keys(S.hist).filter(x=>x<k&&S.hist[x].kept!==undefined).sort().reverse().slice(0,14);
   let top;
@@ -386,6 +398,7 @@ document.addEventListener('click',async e=>{
     case 'open': if(h){render();break} S.hist[k]=makePage(k); render(); putHist(k); break;
     case 'redraw': if(!S.armRedraw){S.armRedraw=true;render();break}
       {const p=makePage(k); p.notes=(h&&h.notes)||[]; p.redraws=((h&&h.redraws)||0)+1; S.hist[k]=p; S.armRedraw=false; render(); putHist(k); window.scrollTo(0,0)} break;
+    case 'again-image': if(!h) break; {const m=pickImage(h.image&&h.image.src); if(m){h.image=m; render(true); putHist(k)}} break;
     case 'again-found': if(!h) break; {const f=pickFound(h.found&&h.found.text); if(f){h.found=f; render(true); putHist(k)}} break;
     case 'again-kept': if(!h) break; {const x=pickKept(k,h.kept&&h.kept.text); if(x){h.kept=x; render(true); putHist(k)}} break;
     case 'again-way': if(!h) break; {const w=pickWay(k,h.way); if(w){setWay(h,w); render(true); putHist(k)}} break;
