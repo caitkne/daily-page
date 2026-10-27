@@ -214,7 +214,7 @@ def img_wellcome():
             return
 
 COMMONS_CATS = ["Paper dolls", "Dollhouses", "Lenticular printing", "Stickers", "Shop windows", "Toy packaging",
-                "Department stores", "Children's bedrooms", "Blythe (doll)", "Sticker albums", "Toy catalogs",
+                "Department stores", "Blythe (doll)", "Sticker albums", "Toy catalogs",
                 "Sewing patterns", "Embroidery samplers", "Plastic toys", "Dollhouse miniatures", "Rubber stamps",
                 "Erasers", "Pencil cases", "Board games", "Trading cards", "Ballet shoes", "Rocking horses"]
 def img_commons():
