@@ -40,7 +40,19 @@ def paragraphs(page):
         if 80 <= len(t) <= 700 and not junk(t):
             yield t
 
+def synopsis(page):
+    # Berlinale (and others) keep the synopsis in a "read more" or "synopsis" block
+    m = re.search(r'(?is)<div[^>]+class="[^"]*(readmoreItem|synopsis)[^"]*"[^>]*>(.*?)</div>', page)
+    if m:
+        t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(2)))).strip()
+        if 60 <= len(t) <= 1200 and not any(b in t.lower() for b in BAD):
+            return t
+    return ""
+
 def description(page):
+    s = synopsis(page)
+    if s:
+        return s
     d = meta(page)
     if d and not junk(d):
         return d
