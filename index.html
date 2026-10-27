@@ -101,8 +101,9 @@ textarea.out{width:100%;box-sizing:border-box;background:transparent;border:1px 
 .card .lbl{padding-top:4px}
 .card .title{grid-column:2}
 .card .src{grid-column:2;color:var(--dim);font-size:14px}
+.card .body{grid-column:2;margin:2px 0 4px}
 .card .src a{color:inherit}
-@media (max-width:420px){.card{grid-template-columns:1fr}.card .title,.card .src{grid-column:1}}
+@media (max-width:420px){.card{grid-template-columns:1fr}.card .title,.card .src,.card .body{grid-column:1}}
 .date{font-size:15px;letter-spacing:.12em;text-transform:uppercase}
 .note{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:3px 0}
 </style>
@@ -135,7 +136,7 @@ const FOUND_BASE='found/';
 const KEPT_REST=60;   // days before the same kept thing can come back
 const RETIRE_AT=3;    // a way rated "meh" this many times is retired
 
-let S={items:[],hist:{},tab:'today',loaded:false,flash:'',localOnly:false,found:{},foundState:{},notes:['','',''],armRedraw:false,editing:null,oldOpen:null};
+let S={items:[],hist:{},tab:'today',loaded:false,flash:'',localOnly:false,found:{},fresh:{},foundState:{},notes:['','',''],armRedraw:false,editing:null,oldOpen:null};
 
 /* ---------- storage: the page's own store; this device only if that is unavailable ---------- */
 let DB=null;
@@ -183,7 +184,7 @@ function loadFound(k){
 function loadFoundFile(k){
   const s=document.createElement('script');
   s.src=FOUND_BASE+k+'.js?v='+Math.floor(Date.now()/6e5);
-  s.onload=()=>{const d=window.DAILY_FOUND; if(d&&d.date===k&&Array.isArray(d.cards)&&d.cards.length){S.found[k]=d.cards;S.foundState[k]='ok'} else S.foundState[k]='none'; delete window.DAILY_FOUND; render(true)};
+  s.onload=()=>{const d=window.DAILY_FOUND; if(d&&d.date===k&&Array.isArray(d.cards)&&d.cards.length){S.found[k]=d.cards;S.fresh[k]=Array.isArray(d.ways)?d.ways:[];S.foundState[k]='ok'} else S.foundState[k]='none'; delete window.DAILY_FOUND; render(true)};
   s.onerror=()=>{S.foundState[k]='none'; render(true)};
   document.head.appendChild(s);
   setTimeout(()=>{if(S.foundState[k]==='loading'){S.foundState[k]='none';render(true)}},9000);
@@ -222,7 +223,15 @@ function pickKept(k,avoid){
 const mehs=id=>Object.values(S.hist).filter(h=>h.way===id&&h.rating===1).length;
 const retired=w=>!w.keep&&mehs(w.id)>=RETIRE_AT;
 const liveWays=()=>of('way').filter(w=>!retired(w));
+function freshWays(){
+  const k=today(), y=yesterday(), d=S.foundState[k]==='ok'?k:(S.foundState[y]==='ok'?y:null);
+  return d?(S.fresh[d]||[]).map((w,i)=>Object.assign({},w,{id:'f:'+d+':'+i,fresh:true})):[];
+}
+function wayOf(h){return h&&(S.items.find(x=>x.id===h.way)||(h.wayObj&&h.wayObj.id===h.way?h.wayObj:null))}
+function setWay(h,id){h.way=id; const f=freshWays().find(x=>x.id===id); if(f) h.wayObj=f; else delete h.wayObj}
 function pickWay(k,avoid){
+  const fr=freshWays().filter(w=>w.id!==avoid);
+  if(fr.length&&Math.random()<0.4) return rand(fr).id;
   const recent=new Set(Object.entries(S.hist).filter(([d])=>d!==k&&daysAgo(d)>=0&&daysAgo(d)<4).map(([,h])=>h.way));
   let ws=liveWays().filter(w=>!recent.has(w.id)&&w.id!==avoid);
   if(!ws.length) ws=liveWays().filter(w=>w.id!==avoid);
@@ -235,7 +244,7 @@ function pickFound(avoid){
   return {text:f.text,whole:f.whole||f.text,source:f.source||'',url:f.url||''};
 }
 function makePage(k){
-  return {found:pickFound(),kept:pickKept(k),way:pickWay(k),notes:[],rating:0,t:Date.now()};
+  const h={found:pickFound(),kept:pickKept(k),notes:[],rating:0,t:Date.now()}; setWay(h,pickWay(k)); return h;
 }
 
 /* a day's page in the new shape (older briefs from before have no kept card) */
@@ -255,14 +264,14 @@ function header(){
 }
 
 function cardsHtml(k,h,live){
-  const w=S.items.find(x=>x.id===h.way);
+  const w=wayOf(h);
   const a=h.kept&&h.kept.a?nm(h.kept.a):'';
   const again=(act)=>live?` <button class="k small" data-act="${act}">another</button>`:'';
   const found=h.found?`<p class="title wrap">“${esc(h.found.text)}”</p><p class="src wrap">${h.found.url?`<a href="${esc(h.found.url)}" target="_blank" rel="noopener">${esc(h.found.source)}</a>`:esc(h.found.source)}${again('again-found')}</p>`
     :`<p class="title dim">${live&&foundWaiting()?'fetching…':'no found card'}</p><p class="src">${live&&!foundWaiting()?'today\'s cards haven\'t arrived. take a line from anything printed near you.':''}${live&&foundPool()?again('again-found'):''}</p>`;
   const kept=h.kept?`<p class="title wrap">${esc(h.kept.text)}</p><p class="src">${h.kept.kind==='note'?'noticed by you':'from '+esc(a||'an interest')}${again('again-kept')}</p>`
     :`<p class="title dim">nothing kept yet</p><p class="src">add a noticing on the kept tab.</p>`;
-  const way=w?`<p class="title wrap">${esc(w.name)}</p><p class="wrap">${esc(w.text||'')}</p><p class="src wrap">${w.after?'after '+(w.url?`<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.after)}</a>`:esc(w.after)):''}${again('again-way')}</p>`
+  const way=w?`<p class="title wrap">${esc(w.name)}</p><p class="body wrap">${esc(w.text||'')}</p><p class="src wrap">${w.after?'after '+(w.url?`<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.after)}</a>`:esc(w.after)):''}${live&&w.fresh?' <button class="k small" data-act="keepway">keep this way</button>':''}${again('again-way')}</p>`
     :`<p class="title dim">no ways yet</p><p class="src">add one on the ways tab.</p>`;
   return `<section class="blk">
     <div class="card"><span class="lbl">found</span>${found}</div></section>
@@ -274,7 +283,7 @@ function viewToday(){
   if(!S.loaded) return '<p class="dim">opening… <span class="caret" aria-hidden="true"></span></p>';
   const k=today(), h=page(k);
   loadFound(k); if(S.foundState[k]==='none') loadFound(yesterday());
-  if(h&&h.way&&!S.items.some(x=>x.id===h.way)){h.way=pickWay(k); setTimeout(()=>putHist(k),0)}
+  if(h&&h.way&&!wayOf(h)){setWay(h,pickWay(k)); setTimeout(()=>putHist(k),0)}
   if(h&&!h.found&&foundPool()){const f=pickFound(); if(f){h.found=f; setTimeout(()=>putHist(k),0)}}
   const past=Object.keys(S.hist).filter(x=>x<k&&S.hist[x].kept!==undefined).sort().reverse().slice(0,14);
   let top;
@@ -379,7 +388,8 @@ document.addEventListener('click',async e=>{
       {const p=makePage(k); p.notes=(h&&h.notes)||[]; p.redraws=((h&&h.redraws)||0)+1; S.hist[k]=p; S.armRedraw=false; render(); putHist(k); window.scrollTo(0,0)} break;
     case 'again-found': if(!h) break; {const f=pickFound(h.found&&h.found.text); if(f){h.found=f; render(true); putHist(k)}} break;
     case 'again-kept': if(!h) break; {const x=pickKept(k,h.kept&&h.kept.text); if(x){h.kept=x; render(true); putHist(k)}} break;
-    case 'again-way': if(!h) break; {const w=pickWay(k,h.way); if(w){h.way=w; render(true); putHist(k)}} break;
+    case 'again-way': if(!h) break; {const w=pickWay(k,h.way); if(w){setWay(h,w); render(true); putHist(k)}} break;
+    case 'keepway': {const w=wayOf(h); if(!w||!w.fresh) break; const id=uid(); await putItem({id,list:'way',name:w.name,text:w.text,after:w.after||'',url:w.url||'',created:Date.now()}); h.way=id; delete h.wayObj; putHist(k); say('kept. it\'s in your ways now.')} break;
     case 'notes': {if(!h) break; render(); const n=S.notes.map(x=>x.trim()).filter(Boolean); if(!n.length){say('write at least one.');break}
       h.notes=n; S.notes=['','','']; for(const t of n) await putItem({id:uid(),list:'note',text:t,date:k,created:Date.now()});
       render(); putHist(k); say(n.length+' kept for another day.'); break}

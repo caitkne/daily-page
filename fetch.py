@@ -112,11 +112,63 @@ def festival():
     f = pool[(TODAY.toordinal() * 7919) % len(pool)]     # walks the whole pool before repeating
     add(f["text"], f["festival"], "synopsis", f.get("url", ""))
 
+# ---------- fresh ways: real methods and materials, dealt alongside the deck ----------
+ways = []
+MEDIUM_Q = ["embroidery", "cut paper", "collage", "sampler", "paper doll", "stencil", "pricked", "quilt",
+            "scrapbook", "silhouette", "beadwork", "papier-mache", "lacquer", "woodblock", "valentine", "toy"]
+def medium():
+    """A real object's medium line from the Met, verbatim: 'work in' this."""
+    for q in rng.sample(MEDIUM_Q, 3):
+        ids = json.loads(get("https://collectionapi.metmuseum.org/public/collection/v1/search?" +
+                             urllib.parse.urlencode({"q": q, "hasImages": "true"}))).get("objectIDs") or []
+        for oid in rng.sample(ids, min(8, len(ids))):
+            try:
+                o = json.loads(get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{oid}"))
+            except Exception:
+                continue
+            m = clean(o.get("medium", ""))
+            if 12 <= len(m) <= 160 and ("," in m or " and " in m):
+                who = ", ".join(p for p in [o.get("title") or o.get("objectName"), o.get("artistDisplayName"), o.get("objectDate")] if p)
+                ways.append({"name": "work in", "text": m[0].lower() + m[1:], "after": who + " (The Met)",
+                             "url": o.get("objectURL", ""), "kind": "medium"})
+                return
+
+ARTIST_CATS = ["Fluxus", "Oulipo members", "Mail art", "Outsider artists", "Collagists", "Book artists",
+               "Women performance artists", "Assemblage artists", "Textile artists", "Diarists",
+               "Miniaturists", "Paper artists", "Conceptual art"]
+def artist():
+    """A working method from a real practitioner's Wikipedia summary."""
+    for cat in rng.sample(ARTIST_CATS, 4):
+        q = "https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(
+            {"action": "query", "list": "categorymembers", "cmtitle": "Category:" + cat,
+             "cmnamespace": 0, "cmlimit": 500, "format": "json"})
+        members = json.loads(get(q)).get("query", {}).get("categorymembers", [])
+        for m in rng.sample(members, min(6, len(members))):
+            t = m["title"]
+            sm = json.loads(get("https://en.wikipedia.org/api/rest_v1/page/summary/" + urllib.parse.quote(t.replace(" ", "_"))))
+            ex = clean(sm.get("extract", ""))
+            desc = (sm.get("description") or "").lower()
+            if sm.get("type") != "standard" or not ex or "list of" in t.lower():
+                continue
+            if not re.search(r"artist|poet|writer|novelist|composer|photographer|designer|illustrator|diarist|weaver|maker|sculptor|painter|filmmaker|performer", desc + " " + ex[:200].lower()):
+                continue
+            sents = re.split(r"(?<=[.!?])\s+", ex)
+            text = " ".join(sents[:2])[:420]
+            ways.append({"name": re.sub(r"\s*\(.*?\)", "", t).lower(), "text": text, "after": t + " (Wikipedia)",
+                         "url": sm.get("content_urls", {}).get("desktop", {}).get("page", ""), "kind": "artist"})
+            return
+
+
 for fn in (nyt, va, wellcome, met, festival):
     safe(fn)
+for fn in (medium, artist):
+    try:
+        fn(); print(f"ok   {fn.__name__}")
+    except Exception as e:
+        print(f"FAIL {fn.__name__}: {e!r}", file=sys.stderr)
 
 rng.shuffle(cards)
-out = {"date": TODAY.isoformat(), "made": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cards": cards}
+out = {"date": TODAY.isoformat(), "made": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cards": cards, "ways": ways}
 os.makedirs("found", exist_ok=True)
 with open(f"found/{TODAY.isoformat()}.js", "w") as f:
     f.write("window.DAILY_FOUND = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
