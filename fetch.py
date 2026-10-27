@@ -231,9 +231,39 @@ def img_commons():
                 return
 
 
+EBAY_Q = ["licca chan", "dream house doll", "blythe doll boxed", "sticker sheet", "sticker album", "deadstock stationery",
+          "pencil case", "eraser collection", "lenticular", "dollar store toy", "rack toy", "playset", "folding dollhouse",
+          "paper dolls", "barbie riding club", "horse figure", "babysitters club", "diary with lock", "charm bracelet",
+          "witch figurine", "cat figurine", "department store bag", "souvenir", "train ticket", "hair accessories",
+          "ballet shoes", "music box ballerina", "trading cards girls", "keychain", "pocket game"]
+def img_ebay():
+    """Vintage eBay listings (needs EBAY_CLIENT_ID / EBAY_CLIENT_SECRET repo secrets)."""
+    cid, sec = os.environ.get("EBAY_CLIENT_ID"), os.environ.get("EBAY_CLIENT_SECRET")
+    if not cid or not sec:
+        print("skip img_ebay: no keys"); return
+    import base64
+    tok = json.loads(get("https://api.ebay.com/identity/v1/oauth2/token",
+        data=urllib.parse.urlencode({"grant_type": "client_credentials", "scope": "https://api.ebay.com/oauth/api_scope"}).encode(),
+        headers={"Authorization": "Basic " + base64.b64encode(f"{cid}:{sec}".encode()).decode(),
+                 "Content-Type": "application/x-www-form-urlencoded"}))["access_token"]
+    got = 0
+    for q in rng.sample(EBAY_Q, 4):
+        url = "https://api.ebay.com/buy/browse/v1/item_summary/search?" + urllib.parse.urlencode(
+            {"q": "vintage " + q, "limit": 50, "offset": rng.choice([0, 50, 100])})
+        items = json.loads(get(url, headers={"Authorization": "Bearer " + tok, "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"})).get("itemSummaries", [])
+        items = [i for i in items if (i.get("image") or {}).get("imageUrl")]
+        for it in rng.sample(items, min(len(items), 6)):
+            src = it["image"]["imageUrl"].replace("s-l225", "s-l800")
+            if add_image(src, it.get("title", ""), "eBay listing", it.get("itemWebUrl", "")):
+                got += 1
+                break
+        if got >= 2:
+            return
+
+
 for fn in (nyt, va, wellcome, aic, festival):
     safe(fn)
-for fn in (medium, artist, img_aic, img_va, img_wellcome, img_commons, img_commons):
+for fn in (medium, artist, img_aic, img_va, img_wellcome, img_commons, img_commons, img_ebay):
     try:
         fn(); print(f"ok   {fn.__name__}")
     except Exception as e:

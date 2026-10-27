@@ -14,6 +14,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: python fetch.py
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
       - name: Save today's cards
         run: |
           git config user.name "daily-page bot"
