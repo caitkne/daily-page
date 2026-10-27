@@ -26,16 +26,23 @@ def get(url):
         return r.read().decode("utf-8", "replace")
 
 BAD = ("cookie", "official website", "javascript", "©", "newsletter", "tickets")
+def junk(t):
+    # captions, bios, title lines and site boilerplate are not synopses
+    low = t.lower()
+    return (any(b in low for b in BAD) or " | " in t or "from left" in low
+            or re.match(r"(born|photo|director|regie)\b", low) is not None
+            or not t.rstrip().endswith((".", "!", "?", "”", '"')))
+
 def paragraphs(page):
     body = re.sub(r"(?is)<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", page)
     for m in re.finditer(r"(?is)<p[^>]*>(.*?)</p>", body):
         t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(1)))).strip()
-        if 60 <= len(t) <= 700 and not any(b in t.lower() for b in BAD):
+        if 80 <= len(t) <= 700 and not junk(t):
             yield t
 
 def description(page):
     d = meta(page)
-    if d and not any(b in d.lower() for b in BAD):
+    if d and not junk(d):
         return d
     return next(paragraphs(page), "")
 
@@ -52,7 +59,7 @@ try:
     old = json.load(open("festivals.json"))
 except Exception:
     old = []
-old = [x for x in old if not any(b in x["text"].lower() for b in BAD)]
+old = [x for x in old if not junk(x["text"])]
 seen = {x["url"] for x in old}
 pool = list(old)
 for f in FESTIVALS:
