@@ -87,20 +87,20 @@ def wellcome():
         w = rng.choice(res)
         add(w.get("title", ""), "Wellcome Collection", "object", f"https://wellcomecollection.org/works/{w.get('id','')}")
 
-MET_Q = ["dollhouse", "doll", "toy", "sampler", "pattern book", "fan", "miniature", "valentine", "trade card", "paper doll"]
-def met():
-    q = rng.choice(MET_Q)
-    ids = json.loads(get("https://collectionapi.metmuseum.org/public/collection/v1/search?" + urllib.parse.urlencode({"q": q}))).get("objectIDs") or []
-    got = 0
-    for oid in rng.sample(ids, min(12, len(ids))):
-        if got >= 2: break
-        try:
-            o = json.loads(get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{oid}"))
-        except Exception:
-            continue                                   # some ids are withdrawn
-        got += 1
-        parts = [o.get("title") or o.get("objectName"), o.get("objectDate"), o.get("medium")]
-        add(", ".join(p for p in parts if p), "The Met", "object", o.get("objectURL", ""))
+AIC_Q = ["dollhouse", "doll", "toy", "sampler", "pattern book", "fan", "miniature", "valentine", "trade card", "paper doll"]
+AIC_FIELDS = "id,title,artist_title,date_display,medium_display"
+def aic_search(q, n=40):
+    url = "https://api.artic.edu/api/v1/artworks/search?" + urllib.parse.urlencode(
+        {"q": q, "limit": n, "page": rng.randint(1, 3), "fields": AIC_FIELDS})
+    return json.loads(get(url, headers={"AIC-User-Agent": UA["User-Agent"]})).get("data", [])
+
+def aic():
+    """Art Institute of Chicago (the Met's API is gone)."""
+    data = aic_search(rng.choice(AIC_Q))
+    for o in rng.sample(data, min(2, len(data))):
+        parts = [o.get("title"), o.get("date_display"), o.get("medium_display")]
+        add(", ".join(p for p in parts if p), "Art Institute of Chicago", "object",
+            f"https://www.artic.edu/artworks/{o.get('id')}")
 
 # ---------- festival synopses: collected once per edition into festivals.json, dealt one a day ----------
 def festival():
@@ -117,20 +117,16 @@ ways = []
 MEDIUM_Q = ["embroidery", "cut paper", "collage", "sampler", "paper doll", "stencil", "pricked", "quilt",
             "scrapbook", "silhouette", "beadwork", "papier-mache", "lacquer", "woodblock", "valentine", "toy"]
 def medium():
-    """A real object's medium line from the Met, verbatim: 'work in' this."""
+    """A real object's medium line, verbatim: 'work in' this."""
     for q in rng.sample(MEDIUM_Q, 3):
-        ids = json.loads(get("https://collectionapi.metmuseum.org/public/collection/v1/search?" +
-                             urllib.parse.urlencode({"q": q, "hasImages": "true"}))).get("objectIDs") or []
-        for oid in rng.sample(ids, min(8, len(ids))):
-            try:
-                o = json.loads(get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{oid}"))
-            except Exception:
-                continue
-            m = clean(o.get("medium", ""))
-            if 12 <= len(m) <= 160 and ("," in m or " and " in m):
-                who = ", ".join(p for p in [o.get("title") or o.get("objectName"), o.get("artistDisplayName"), o.get("objectDate")] if p)
-                ways.append({"name": "work in", "text": m[0].lower() + m[1:], "after": who + " (The Met)",
-                             "url": o.get("objectURL", ""), "kind": "medium"})
+        data = aic_search(q)
+        rng.shuffle(data)
+        for o in data:
+            m = clean(o.get("medium_display") or "")
+            if 12 <= len(m) <= 160 and ("," in m or " and " in m or " on " in m):
+                who = ", ".join(p for p in [o.get("title"), o.get("artist_title"), o.get("date_display")] if p)
+                ways.append({"name": "work in", "text": m[0].lower() + m[1:], "after": who + " (Art Institute of Chicago)",
+                             "url": f"https://www.artic.edu/artworks/{o.get('id')}", "kind": "medium"})
                 return
 
 ARTIST_CATS = ["Fluxus", "Oulipo members", "Mail art", "Outsider artists", "Collagists", "Book artists",
@@ -159,7 +155,7 @@ def artist():
             return
 
 
-for fn in (nyt, va, wellcome, met, festival):
+for fn in (nyt, va, wellcome, aic, festival):
     safe(fn)
 for fn in (medium, artist):
     try:
