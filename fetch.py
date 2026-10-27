@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ET
 from html import unescape
 
 TZ_OFFSET = 13  # New Zealand daylight time; only used to name the day
-TODAY = (datetime.datetime.utcnow() + datetime.timedelta(hours=TZ_OFFSET)).date()
+TODAY = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=TZ_OFFSET)).date()
 rng = random.Random(TODAY.isoformat())
 UA = {"User-Agent": "daily-page/1.0 (personal notebook prompt; github.com/caitkne/daily-page)"}
 
@@ -25,7 +25,7 @@ def clean(s):
     return re.sub(r"\s+", " ", s).strip()
 
 # ---------- cropping: a fixed rule, like a paper viewfinder ----------
-STOP = set("a an the and or but of to in on at for with by from as is are was were be been it its this that these those who which".split())
+STOP = set("a an the and or but of to in on at for with by from as is are was were be been being it its this that these those who which whose she he they we you i her his their our your him them has have had will would can could should not no into over about than then so if when while because after before has said says".split())
 def crop(text):
     words = text.split()
     if len(words) <= 9 or rng.random() < 0.35:
@@ -91,8 +91,14 @@ MET_Q = ["dollhouse", "doll", "toy", "sampler", "pattern book", "fan", "miniatur
 def met():
     q = rng.choice(MET_Q)
     ids = json.loads(get("https://collectionapi.metmuseum.org/public/collection/v1/search?" + urllib.parse.urlencode({"q": q}))).get("objectIDs") or []
-    for oid in rng.sample(ids, min(2, len(ids))):
-        o = json.loads(get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{oid}"))
+    got = 0
+    for oid in rng.sample(ids, min(12, len(ids))):
+        if got >= 2: break
+        try:
+            o = json.loads(get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{oid}"))
+        except Exception:
+            continue                                   # some ids are withdrawn
+        got += 1
         parts = [o.get("title") or o.get("objectName"), o.get("objectDate"), o.get("medium")]
         add(", ".join(p for p in parts if p), "The Met", "object", o.get("objectURL", ""))
 
@@ -110,7 +116,7 @@ for fn in (nyt, va, wellcome, met, festival):
     safe(fn)
 
 rng.shuffle(cards)
-out = {"date": TODAY.isoformat(), "made": datetime.datetime.utcnow().isoformat() + "Z", "cards": cards}
+out = {"date": TODAY.isoformat(), "made": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cards": cards}
 os.makedirs("found", exist_ok=True)
 with open(f"found/{TODAY.isoformat()}.js", "w") as f:
     f.write("window.DAILY_FOUND = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
