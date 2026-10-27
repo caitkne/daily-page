@@ -25,7 +25,21 @@ def get(url):
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8", "replace")
 
+BAD = ("cookie", "official website", "javascript", "©", "newsletter", "tickets")
+def paragraphs(page):
+    body = re.sub(r"(?is)<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", page)
+    for m in re.finditer(r"(?is)<p[^>]*>(.*?)</p>", body):
+        t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(1)))).strip()
+        if 60 <= len(t) <= 700 and not any(b in t.lower() for b in BAD):
+            yield t
+
 def description(page):
+    d = meta(page)
+    if d and not any(b in d.lower() for b in BAD):
+        return d
+    return next(paragraphs(page), "")
+
+def meta(page):
     for pat in (r'<meta[^>]+property="og:description"[^>]+content="([^"]+)"',
                 r'<meta[^>]+content="([^"]+)"[^>]+property="og:description"',
                 r'<meta[^>]+name="description"[^>]+content="([^"]+)"'):
@@ -38,6 +52,7 @@ try:
     old = json.load(open("festivals.json"))
 except Exception:
     old = []
+old = [x for x in old if not any(b in x["text"].lower() for b in BAD)]
 seen = {x["url"] for x in old}
 pool = list(old)
 for f in FESTIVALS:
@@ -51,6 +66,8 @@ for f in FESTIVALS:
             if re.fullmatch(f["link"], l) or re.fullmatch(f["link"], urllib.parse.urlparse(l).path or ""):
                 u = urllib.parse.urljoin(lst, l)
                 if u not in links: links.append(u)
+    if not links:
+        print("  no film links matched; sample hrefs:", re.findall(r'href="([^"]+)"', page)[:60])
     new = 0
     for u in links[:PER_FESTIVAL]:
         if u in seen: continue
