@@ -1,41 +1,34 @@
 window.DAILY_FOUND = {
  "date": "2026-10-27",
- "made": "2026-10-27T05:22:47.965435+00:00",
+ "made": "2026-10-27T07:00:04.024994+00:00",
  "cards": [
   {
-   "text": "rescuers she had jumped off",
-   "whole": "According to Greek officials, the woman told her rescuers she had jumped off the ship because she “wanted to disembark.”",
-   "source": "NYT Travel",
+   "text": "Scientists now know that they shared many of the sophisticated abilities of Homo sapiens. So why are we the only humans left standing?",
+   "whole": "Scientists now know that they shared many of the sophisticated abilities of Homo sapiens. So why are we the only humans left standing?",
+   "source": "NYT Science",
    "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/15/travel/cruise-passenger-overboard-rescue-greece.html"
+   "url": "https://www.nytimes.com/2026/10/26/science/what-happened-to-the-neanderthals.html"
   },
   {
-   "text": "auf psychischem Wege / [Johann Christian Reil].",
-   "whole": "Beyträge zur Beförderung einer Kurmethode auf psychischem Wege / [Johann Christian Reil].",
-   "source": "Wellcome Collection",
+   "text": "solo show, is inspired by a massacre",
+   "whole": "“The Amish Project,” a solo show, is inspired by a massacre that took place minutes from Groff’s childhood home. He will bring it to Broadway in February.",
+   "source": "NYT Arts",
+   "kind": "headline",
+   "url": "https://www.nytimes.com/2026/10/23/theater/jonathan-groff-broadway-amish-project-school-shooting.html"
+  },
+  {
+   "text": "Flowering Plum Blossom 梅花竹柄团扇, Qing dynasty (1644–1912), 1892, Fan; ink on silk, with bamboo-and-ivory handle",
+   "whole": "Flowering Plum Blossom 梅花竹柄团扇, Qing dynasty (1644–1912), 1892, Fan; ink on silk, with bamboo-and-ivory handle",
+   "source": "Art Institute of Chicago",
    "kind": "object",
-   "url": "https://wellcomecollection.org/works/upaauj25"
+   "url": "https://www.artic.edu/artworks/132945"
   },
   {
-   "text": "The brand’s gleaming new design was sparked by its founder’s fascination with the animal.",
-   "whole": "The brand’s gleaming new design was sparked by its founder’s fascination with the animal.",
-   "source": "NYT Style",
-   "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/23/t-magazine/chanel-lion-topaze-necklace.html"
-  },
-  {
-   "text": "horizon, an especially unnerving indie chiller leads",
-   "whole": "With Halloween on the horizon, an especially unnerving indie chiller leads off our rundown of hidden gems on your subscription streaming services.",
-   "source": "NYT Arts",
-   "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/23/movies/daniel-isnt-real-streaming.html"
-  },
-  {
-   "text": "His rugged good looks, commanding presence and versatility led to key roles in “M*A*S*H” and “Steel Magnolias,” and he won an Emmy on “Picket Fences.”",
-   "whole": "His rugged good looks, commanding presence and versatility led to key roles in “M*A*S*H” and “Steel Magnolias,” and he won an Emmy on “Picket Fences.”",
-   "source": "NYT Arts",
-   "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/22/arts/television/tom-skerritt-dead.html"
+   "text": "1870/1890, tortoiseshell(?), ribs, slips, and guardsticks; silk, bobbin",
+   "whole": "Fan, 1870/1890, tortoiseshell(?), ribs, slips, and guardsticks; silk, bobbin lace",
+   "source": "Art Institute of Chicago",
+   "kind": "object",
+   "url": "https://www.artic.edu/artworks/16229"
   },
   {
    "text": "With a double-breasted suit, he sent a message that he was ready for business.",
@@ -52,46 +45,11 @@ window.DAILY_FOUND = {
    "url": "https://collections.vam.ac.uk/item/O475755/"
   },
   {
-   "text": "Engagement diary, 1957",
-   "whole": "Engagement diary, 1957",
-   "source": "Wellcome Collection",
-   "kind": "object",
-   "url": "https://wellcomecollection.org/works/bxrmpa69"
-  },
-  {
-   "text": "Fables choisies (volumes 3 and 4), 1756–59, Bound book of letterpress text with etched and engraved illustrations and woodcut vignettes and culs de lampe in black on ivory laid paper",
-   "whole": "Fables choisies (volumes 3 and 4), 1756–59, Bound book of letterpress text with etched and engraved illustrations and woodcut vignettes and culs de lampe in black on ivory laid paper",
-   "source": "Art Institute of Chicago",
-   "kind": "object",
-   "url": "https://www.artic.edu/artworks/11943"
-  },
-  {
-   "text": "Hiking the Polish-Czech Friendship Trail, Where Cold War Dissidents Once Met",
-   "whole": "Hiking the Polish-Czech Friendship Trail, Where Cold War Dissidents Once Met",
-   "source": "NYT Travel",
-   "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/15/travel/polish-czech-friendship-trail-hike.html"
-  },
-  {
-   "text": "Scientists now know that they shared many of the sophisticated abilities of Homo sapiens. So why are we the only humans left standing?",
-   "whole": "Scientists now know that they shared many of the sophisticated abilities of Homo sapiens. So why are we the only humans left standing?",
+   "text": "agency replied two months later",
+   "whole": "The agency replied two months later, saying it had “competing priorities,” officials from a coalition of Western states said.",
    "source": "NYT Science",
    "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/26/science/what-happened-to-the-neanderthals.html"
-  },
-  {
-   "text": "Trump and Vice President JD",
-   "whole": "President Trump and Vice President JD Vance have dangled FEMA money to disaster-struck states during recent campaign rallies.",
-   "source": "NYT Science",
-   "kind": "headline",
-   "url": "https://www.nytimes.com/2026/10/21/climate/disaster-aid-politics-trump-north-carolina.html"
-  },
-  {
-   "text": "Norway, 1866, Sketchbook",
-   "whole": "Norway, 1866, Sketchbook",
-   "source": "Art Institute of Chicago",
-   "kind": "object",
-   "url": "https://www.artic.edu/artworks/4323"
+   "url": "https://www.nytimes.com/2026/10/21/health/measles-test-cdc.html"
   },
   {
    "text": "Azael the Prodigal, 19th century, Great Britain",
@@ -101,59 +59,113 @@ window.DAILY_FOUND = {
    "url": "https://collections.vam.ac.uk/item/O759067/"
   },
   {
-   "text": "An outrageous satire of the Mexican art world that pits insecure artists against predatory curators.",
+   "text": "Mexican art world that pits insecure artists against",
    "whole": "An outrageous satire of the Mexican art world that pits insecure artists against predatory curators.",
    "source": "IFFR",
    "kind": "synopsis",
    "url": "https://iffr.com/en/iffr/2026/films/art-is-dark-and-full-of-horrors"
+  },
+  {
+   "text": "Hiking the Polish-Czech Friendship Trail, Where Cold War Dissidents Once Met",
+   "whole": "Hiking the Polish-Czech Friendship Trail, Where Cold War Dissidents Once Met",
+   "source": "NYT Travel",
+   "kind": "headline",
+   "url": "https://www.nytimes.com/2026/10/15/travel/polish-czech-friendship-trail-hike.html"
+  },
+  {
+   "text": "The brand’s gleaming new design was sparked by its founder’s fascination with the animal.",
+   "whole": "The brand’s gleaming new design was sparked by its founder’s fascination with the animal.",
+   "source": "NYT Style",
+   "kind": "headline",
+   "url": "https://www.nytimes.com/2026/10/23/t-magazine/chanel-lion-topaze-necklace.html"
+  },
+  {
+   "text": "Engagement diary, 1970",
+   "whole": "Engagement diary, 1970",
+   "source": "Wellcome Collection",
+   "kind": "object",
+   "url": "https://wellcomecollection.org/works/atsrj3ds"
+  },
+  {
+   "text": "The artwork, titled “Iris,” is among the painter’s later works, which wealthy collectors have coveted in recent years.",
+   "whole": "The artwork, titled “Iris,” is among the painter’s later works, which wealthy collectors have coveted in recent years.",
+   "source": "NYT Arts",
+   "kind": "headline",
+   "url": "https://www.nytimes.com/2026/10/22/arts/design/claude-monet-painting-auction-paris.html"
+  },
+  {
+   "text": "Ostgalicien; über ihre Bestandtheile, über ihren Gebrauch",
+   "whole": "Ueber die Mineralquellen zu Kryniça, im Sandecer Kreise in Ostgalicien; über ihre Bestandtheile, über ihren Gebrauch und über ihre Heilkräfte / [Joseph August Schultes].",
+   "source": "Wellcome Collection",
+   "kind": "object",
+   "url": "https://wellcomecollection.org/works/hgnwqc79"
+  },
+  {
+   "text": "rescuers she had jumped off",
+   "whole": "According to Greek officials, the woman told her rescuers she had jumped off the ship because she “wanted to disembark.”",
+   "source": "NYT Travel",
+   "kind": "headline",
+   "url": "https://www.nytimes.com/2026/10/15/travel/cruise-passenger-overboard-rescue-greece.html"
   }
  ],
  "ways": [
   {
    "name": "work in",
-   "text": "aluminum, steel wire, screws, wooden pins, iron rods, and coiled springs",
-   "after": "Drawing Without Paper 85.22 (Dibujo sin papel 85.22), Gego (Gertrud Goldschmidt), 1985 (Art Institute of Chicago)",
-   "url": "https://www.artic.edu/artworks/224867",
+   "text": "collage of commercially prepared papers and mixed media on white 2-ply board",
+   "after": "Untitled, Arturo Herrera, 1998 (Art Institute of Chicago)",
+   "url": "https://www.artic.edu/artworks/151523",
    "kind": "medium"
   },
   {
-   "name": "wim t. schippers",
-   "text": "Willem Theodoor Schippers was a Dutch artist, comedian, television director and voice actor. During the 1960s, he worked mostly as a visual artist, associated with the international Fluxus-movement.",
-   "after": "Wim T. Schippers (Wikipedia)",
-   "url": "https://en.wikipedia.org/wiki/Wim_T._Schippers",
+   "name": "clémentine mélois",
+   "text": "Clémentine Mélois is a French artist and writer, known for her experimental and humorous works that combine visual art and literature. Mélois first gained attention with Cent titres (2014), a book of playful reinterpretations of the titles and covers of well-known books.",
+   "after": "Clémentine Mélois (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Cl%C3%A9mentine_M%C3%A9lois",
    "kind": "artist"
   }
  ],
  "images": [
   {
-   "src": "https://www.artic.edu/iiif/2/7120b4c6-fbd6-ea4e-f346-0b696596a6c5/full/843,/0/default.jpg",
-   "title": "Rest on the Flight into Egypt, Bartolomeo Biscaino, n.d.",
+   "src": "https://www.artic.edu/iiif/2/87f735a6-f22a-fdae-505a-85961f5dc99e/full/843,/0/default.jpg",
+   "title": "Bead, Eastern Zhou dynasty (770–256 B.C.), c. 5th c. B.C.",
    "source": "Art Institute of Chicago",
-   "url": "https://www.artic.edu/artworks/89"
+   "url": "https://www.artic.edu/artworks/129745"
   },
   {
-   "src": "https://framemark.vam.ac.uk/collections/2019LM4912/full/!800,800/0/default.jpg",
-   "title": "Nutmeg, 2015, Britain",
+   "src": "https://framemark.vam.ac.uk/collections/2010EC3163/full/!800,800/0/default.jpg",
+   "title": "Promises, 1900-1915, Florence",
    "source": "V&A collection",
-   "url": "https://collections.vam.ac.uk/item/O1350059/"
+   "url": "https://collections.vam.ac.uk/item/O157666/"
   },
   {
-   "src": "https://iiif.wellcomecollection.org/image/L0029886/full/!800,800/0/default.jpg",
-   "title": "A woman falling headfirst through an open cellar-door outside a pharmacy, and a man expressing his concern. Coloured etching by I. Cruikshank after G.M. Woodward, 1798.",
+   "src": "https://iiif.wellcomecollection.org/image/V0044074/full/!800,800/0/default.jpg",
+   "title": "Two sprigs of flowers including roses and Narcissi, meant as designs for embroidery. Etching with engraving after W. Kilburn, 1775.",
    "source": "Wellcome Collection",
-   "url": "https://wellcomecollection.org/works/k6nbjdyr"
+   "url": "https://wellcomecollection.org/works/ykvqwre9"
   },
   {
-   "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/1947_Arab-Israeli_War_997008137394305171.jpg/960px-1947_Arab-Israeli_War_997008137394305171.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "title": "1947 Arab-Israeli War 997008137394305171",
-   "source": "Wikimedia Commons · Children's bedrooms",
-   "url": "https://commons.wikimedia.org/wiki/File:1947_Arab-Israeli_War_997008137394305171.jpg"
+   "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Be_brave_like_Ukraine_%28sticker%29.jpg/960px-Be_brave_like_Ukraine_%28sticker%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "Be brave like Ukraine (sticker)",
+   "source": "Wikimedia Commons · Stickers",
+   "url": "https://commons.wikimedia.org/wiki/File:Be_brave_like_Ukraine_(sticker).jpg"
   },
   {
-   "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Eraser_pencil_ubt_047.JPG/960px-Eraser_pencil_ubt_047.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "title": "Eraser pencil ubt 047",
-   "source": "Wikimedia Commons · Erasers",
-   "url": "https://commons.wikimedia.org/wiki/File:Eraser_pencil_ubt_047.JPG"
+   "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Avalon-hill-play-money.jpg/960px-Avalon-hill-play-money.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "Avalon-hill-play-money",
+   "source": "Wikimedia Commons · Board games",
+   "url": "https://commons.wikimedia.org/wiki/File:Avalon-hill-play-money.jpg"
+  },
+  {
+   "src": "https://i.ebayimg.com/images/g/paoAAeSwpO5pJ3p-/s-l800.jpg",
+   "title": "Paper Dolls Their History and How to Make Them • Edith Flack Ackley • 1939",
+   "source": "eBay listing",
+   "url": "https://www.ebay.com/itm/389292996006?_skw=vintage+paper+dolls&hash=item5aa3abb5a6:g:paoAAeSwpO5pJ3p-&amdata=enc%3AAQALAAAA8Of5zIIojhOf%2BkQK%2Bxzjn7neF6voVqtvUey2GY530bGDfEpx%2F7Ulvall%2FP9h9VblfwA3vvA68VjGMuAubJhTO1HDEc1%2BH51nikJJ%2FLcptEDDZlr%2FjD2ZMM60Na%2Fesv9s3C%2BtMabglX2yiBLJcvnYXKLOTYjoJ9%2BHSaUgGVMARuauBi1o2ylQ2PTxRHDWEOpZ0IoiZaIOrQjGs8PQ9Q2UdxW6NWPf2RIQVhEWWyUvgLu%2BPEXMoUUsIUUWFV6U1sHoGvp8vxz%2ByBpJ6XINBqRYSjB%2BfDWUgqkCpz1Sx%2BwNdVzVENHViIweaXjlyjXsW9UHgw%3D%3D"
+  },
+  {
+   "src": "https://i.ebayimg.com/images/g/2GAAAeSwmaFq3VEL/s-l800.jpg",
+   "title": "Antique Vtg Round Hole Punch Train Railroad Ticket Punch",
+   "source": "eBay listing",
+   "url": "https://www.ebay.com/itm/227582241303?_skw=vintage+train+ticket&hash=item34fcf56a17:g:2GAAAeSwmaFq3VEL"
   }
  ]
 };
