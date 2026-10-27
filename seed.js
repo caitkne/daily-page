@@ -930,74 +930,409 @@ window.SEED = {
    "id": "i34"
   },
   {
-   "created": 1793070000000,
+   "id": "x01",
    "list": "way",
-   "name": "erase",
-   "text": "copy the found text out, then cover all but a few words.",
-   "id": "w01"
+   "name": "follow",
+   "text": "pick one thing from the cards and tail it down the page. note every place it turns up, with times.",
+   "after": "Sophie Calle, Suite vénitienne (1980)",
+   "url": "https://en.wikipedia.org/wiki/Sophie_Calle",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x02",
+   "list": "way",
+   "name": "the address book",
+   "text": "make a portrait of someone you never meet, built only from the things and people around them.",
+   "after": "Sophie Calle, The Address Book (1983)",
+   "url": "https://en.wikipedia.org/wiki/Sophie_Calle",
+   "created": 1793080000000
+  },
+  {
+   "id": "x03",
+   "list": "way",
+   "name": "the hotel room",
+   "text": "draw a room from what was left in it. the person is never shown.",
+   "after": "Sophie Calle, The Hotel (1981)",
+   "url": "https://en.wikipedia.org/wiki/Sophie_Calle",
+   "created": 1793080000000
+  },
+  {
+   "id": "x04",
+   "list": "way",
+   "name": "exhaust a place",
+   "text": "sit somewhere and write down what happens when nothing happens: buses, colours, a dropped glove.",
+   "after": "Georges Perec, An Attempt at Exhausting a Place in Paris (1974)",
+   "url": "https://en.wikipedia.org/wiki/Georges_Perec",
+   "created": 1793080000000
+  },
+  {
+   "id": "x05",
+   "list": "way",
+   "name": "species of spaces",
+   "text": "start with the page, then the desk, the room, the street, the town. one line or drawing for each, moving outward.",
+   "after": "Georges Perec, Species of Spaces (1974)",
+   "url": "https://en.wikipedia.org/wiki/Species_of_Spaces_and_Other_Pieces",
+   "created": 1793080000000
+  },
+  {
+   "id": "x06",
+   "list": "way",
+   "name": "i remember",
+   "text": "fill the page with lines that start 'i remember'. short ones. don't explain any of them.",
+   "after": "Joe Brainard, I Remember (1970)",
+   "url": "https://en.wikipedia.org/wiki/I_Remember_(book)",
+   "created": 1793080000000
+  },
+  {
+   "id": "x07",
+   "list": "way",
+   "name": "without one letter",
+   "text": "write about the cards without using one letter. e is the hard one.",
+   "after": "Georges Perec, La Disparition (1969)",
+   "url": "https://en.wikipedia.org/wiki/A_Void",
+   "created": 1793080000000
+  },
+  {
+   "id": "x08",
+   "list": "way",
+   "name": "n+7",
+   "text": "copy the found line, then swap each noun for the seventh noun after it in a dictionary or any book with an index.",
+   "after": "Jean Lescure / Oulipo",
+   "url": "https://en.wikipedia.org/wiki/Oulipo",
+   "created": 1793080000000
+  },
+  {
+   "id": "x09",
+   "list": "way",
+   "name": "exercises in style",
+   "text": "tell one small thing four times: as a list, a complaint, a telegram, a recipe.",
+   "after": "Raymond Queneau, Exercises in Style (1947)",
+   "url": "https://en.wikipedia.org/wiki/Exercises_in_Style",
+   "created": 1793080000000
+  },
+  {
+   "id": "x10",
+   "list": "way",
+   "name": "did, saw, heard",
+   "text": "split the page into four: what you did, what you saw, what you heard, and a drawing of one of them.",
+   "after": "Lynda Barry, Syllabus (2014)",
+   "url": "https://en.wikipedia.org/wiki/Lynda_Barry",
+   "created": 1793080000000
+  },
+  {
+   "id": "x11",
+   "list": "way",
+   "name": "where are you",
+   "text": "take one word from the cards and go into the memory it brings. write what's on your left, what's behind you, what the light is like.",
+   "after": "Lynda Barry, What It Is (2008)",
+   "url": "https://en.wikipedia.org/wiki/Lynda_Barry",
+   "created": 1793080000000
+  },
+  {
+   "id": "x12",
+   "list": "way",
+   "name": "the finder",
+   "text": "cut a small rectangle out of card and look through it. draw only what fits inside the frame.",
+   "after": "Corita Kent, Learning by Heart (1992)",
+   "url": "https://en.wikipedia.org/wiki/Corita_Kent",
+   "created": 1793080000000
+  },
+  {
+   "id": "x13",
+   "list": "way",
+   "name": "slogan",
+   "text": "blow the found line up like a sign. tilt it, crop it, let it run off the edge, write your own words small underneath.",
+   "after": "Corita Kent, serigraphs (1960s)",
+   "url": "https://en.wikipedia.org/wiki/Corita_Kent",
+   "created": 1793080000000
+  },
+  {
+   "id": "x14",
+   "list": "way",
+   "name": "instruction piece",
+   "text": "turn the cards into a few lines of instruction for somebody else to carry out. write it like a recipe for an impossible thing.",
+   "after": "Yoko Ono, Grapefruit (1964)",
+   "url": "https://en.wikipedia.org/wiki/Grapefruit_(book)",
+   "created": 1793080000000
+  },
+  {
+   "id": "x15",
+   "list": "way",
+   "name": "event score",
+   "text": "write a score for one tiny event (a cup set down, a light turned off), then do it and note what happened.",
+   "after": "George Brecht, event scores (1959-62)",
+   "url": "https://en.wikipedia.org/wiki/George_Brecht",
+   "created": 1793080000000
+  },
+  {
+   "id": "x16",
+   "list": "way",
+   "name": "make a salad",
+   "text": "do one ordinary task as if it were a performance. draw each step like a diagram in a manual.",
+   "after": "Alison Knowles, Make a Salad (1962)",
+   "url": "https://en.wikipedia.org/wiki/Alison_Knowles",
+   "created": 1793080000000
+  },
+  {
+   "id": "x17",
+   "list": "way",
+   "name": "wall drawing",
+   "text": "write an instruction for a drawing first. then follow it exactly, even when it goes wrong.",
+   "after": "Sol LeWitt, wall drawings (1968-2007)",
+   "url": "https://en.wikipedia.org/wiki/Sol_LeWitt",
+   "created": 1793080000000
+  },
+  {
+   "id": "x18",
+   "list": "way",
+   "name": "by chance",
+   "text": "toss a coin for every decision on the page: which card, which colour, which corner, keep going or stop.",
+   "after": "John Cage, Music of Changes (1951)",
+   "url": "https://en.wikipedia.org/wiki/John_Cage",
+   "created": 1793080000000
+  },
+  {
+   "id": "x19",
+   "list": "way",
+   "name": "twentysix",
+   "text": "a plain, numbered series of one kind of thing. no commentary.",
+   "after": "Ed Ruscha, Twentysix Gasoline Stations (1963)",
+   "url": "https://en.wikipedia.org/wiki/Twentysix_Gasoline_Stations",
+   "created": 1793080000000
+  },
+  {
+   "id": "x20",
+   "list": "way",
+   "name": "typology",
+   "text": "a grid of nine of the same kind of object, all drawn at the same size and from the same angle.",
+   "after": "Bernd and Hilla Becher, typologies (1959-2007)",
+   "url": "https://en.wikipedia.org/wiki/Bernd_and_Hilla_Becher",
+   "created": 1793080000000
+  },
+  {
+   "id": "x21",
+   "list": "way",
+   "name": "box",
+   "text": "build a box on the page: compartments, each holding one small thing from the cards.",
+   "after": "Joseph Cornell, boxes (1936-72)",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Cornell",
+   "created": 1793080000000
+  },
+  {
+   "id": "x22",
+   "list": "way",
+   "name": "fold-away",
+   "text": "design a unit that holds everything one card needs and folds shut. show it open and closed.",
+   "after": "Andrea Zittel, A-Z Living Units (1993-94)",
+   "url": "https://en.wikipedia.org/wiki/Andrea_Zittel",
+   "created": 1793080000000
+  },
+  {
+   "id": "x23",
+   "list": "way",
+   "name": "maintenance",
+   "text": "make the page about the upkeep: who cleans it, mends it, dusts it, keeps it going.",
+   "after": "Mierle Laderman Ukeles, Manifesto for Maintenance Art (1969)",
+   "url": "https://en.wikipedia.org/wiki/Mierle_Laderman_Ukeles",
+   "created": 1793080000000
+  },
+  {
+   "id": "x24",
+   "list": "way",
+   "name": "glean",
+   "text": "use only what's left over: margins, offcuts, the back of a receipt, the end of a pen.",
+   "after": "Agnès Varda, The Gleaners and I (2000)",
+   "url": "https://en.wikipedia.org/wiki/The_Gleaners_and_I",
+   "created": 1793080000000
+  },
+  {
+   "id": "x25",
+   "list": "way",
+   "name": "unreadable book",
+   "text": "tell it without words: folds, cuts, holes, colour, a thread.",
+   "after": "Bruno Munari, Libri illeggibili (1949-)",
+   "url": "https://en.wikipedia.org/wiki/Bruno_Munari",
+   "created": 1793080000000
+  },
+  {
+   "id": "x26",
+   "list": "way",
+   "name": "things that",
+   "text": "write a list under a heading in the Pillow Book's manner: things that…, rare things, things that cannot be compared.",
+   "after": "Sei Shōnagon, The Pillow Book (c. 1002)",
+   "url": "https://en.wikipedia.org/wiki/The_Pillow_Book",
+   "created": 1793080000000
+  },
+  {
+   "id": "x27",
+   "list": "way",
+   "name": "invisible city",
+   "text": "describe a city made entirely of one card. give it a woman's name.",
+   "after": "Italo Calvino, Invisible Cities (1972)",
+   "url": "https://en.wikipedia.org/wiki/Invisible_Cities",
+   "created": 1793080000000
+  },
+  {
+   "id": "x28",
+   "list": "way",
+   "name": "celestial emporium",
+   "text": "sort everything on the cards into categories that shouldn't exist side by side. label them a, b, c…",
+   "after": "Jorge Luis Borges, 'The Analytical Language of John Wilkins' (1942)",
+   "url": "https://en.wikipedia.org/wiki/Celestial_Emporium_of_Benevolent_Knowledge",
+   "created": 1793080000000
+  },
+  {
+   "id": "x29",
+   "list": "way",
+   "name": "mail art",
+   "text": "make the page a letter to someone, with room left for them to add to it and send it on.",
+   "after": "Ray Johnson, New York Correspondence School (1962-)",
+   "url": "https://en.wikipedia.org/wiki/Ray_Johnson",
+   "created": 1793080000000
+  },
+  {
+   "id": "x30",
+   "list": "way",
+   "name": "humument",
+   "text": "take a printed page and paint over it, leaving a path of a few words to read.",
+   "after": "Tom Phillips, A Humument (1966-2016)",
+   "url": "https://en.wikipedia.org/wiki/A_Humument",
+   "created": 1793080000000
+  },
+  {
+   "id": "x31",
+   "list": "way",
+   "name": "cut-up",
+   "text": "cut the found line and your kept words into single words. shuffle, lay them out, keep the first order that surprises you.",
+   "after": "Brion Gysin and William S. Burroughs (1959)",
+   "url": "https://en.wikipedia.org/wiki/Cut-up_technique",
+   "created": 1793080000000
+  },
+  {
+   "id": "x32",
+   "list": "way",
+   "name": "merz",
+   "text": "collage only from today's paper rubbish: tickets, tags, wrappers.",
+   "after": "Kurt Schwitters, Merz (1919-48)",
+   "url": "https://en.wikipedia.org/wiki/Kurt_Schwitters",
+   "created": 1793080000000
+  },
+  {
+   "id": "x33",
+   "list": "way",
+   "name": "life? or theatre?",
+   "text": "draw a scene and write the words over the picture, so the text and image sit in the same place.",
+   "after": "Charlotte Salomon, Life? or Theatre? (1940-42)",
+   "url": "https://en.wikipedia.org/wiki/Charlotte_Salomon",
+   "created": 1793080000000
+  },
+  {
+   "id": "x34",
+   "list": "way",
+   "name": "department of",
+   "text": "open a museum department for one thing on the cards: numbered exhibits, labels, a short catalogue.",
+   "after": "Marcel Broodthaers, Musée d'Art Moderne, Département des Aigles (1968-72)",
+   "url": "https://en.wikipedia.org/wiki/Marcel_Broodthaers",
+   "created": 1793080000000
+  },
+  {
+   "id": "x35",
    "list": "way",
    "name": "inventory",
-   "text": "list everything, Perec-style, and draw some of it.",
-   "id": "w02"
+   "text": "list every object belonging to one imagined person, and draw some of them at actual size.",
+   "after": "Christian Boltanski, inventories (1973-74)",
+   "url": "https://en.wikipedia.org/wiki/Christian_Boltanski",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x36",
    "list": "way",
-   "name": "cut up",
-   "text": "cut both cards into strips and rebuild them as one.",
-   "id": "w03"
+   "name": "my collection of",
+   "text": "make one page of a collection album: everything of one kind, pasted or drawn, titled 'my collection of…'.",
+   "after": "Annette Messager, album-collections (1971-74)",
+   "url": "https://en.wikipedia.org/wiki/Annette_Messager",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x37",
    "list": "way",
-   "name": "series",
-   "text": "draw the same thing 12 times, with one change each time.",
-   "id": "w04"
+   "name": "truisms",
+   "text": "write short statements in capitals, each one sure of itself. let them contradict each other.",
+   "after": "Jenny Holzer, Truisms (1977-79)",
+   "url": "https://en.wikipedia.org/wiki/Jenny_Holzer",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x38",
    "list": "way",
-   "name": "copy exactly",
-   "text": "reproduce something as precisely as you can.",
-   "id": "w05"
+   "name": "concrete poem",
+   "text": "arrange the words so their shape on the page is part of what they say.",
+   "after": "Ian Hamilton Finlay, concrete poetry (1960s)",
+   "url": "https://en.wikipedia.org/wiki/Ian_Hamilton_Finlay",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x39",
    "list": "way",
-   "name": "instructions",
-   "text": "write how someone else would make this page.",
-   "id": "w06"
+   "name": "hand grid",
+   "text": "rule a grid by hand, slowly, and let the wobble be the drawing.",
+   "after": "Agnes Martin, grid paintings (1960s)",
+   "url": "https://en.wikipedia.org/wiki/Agnes_Martin",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x40",
    "list": "way",
-   "name": "map",
-   "text": "put both on one plan.",
-   "id": "w07"
+   "name": "the space inside",
+   "text": "draw the space in and around something, never the thing itself.",
+   "after": "Rachel Whiteread, House (1993)",
+   "url": "https://en.wikipedia.org/wiki/Rachel_Whiteread",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x41",
    "list": "way",
-   "name": "actual size",
-   "text": "draw at 1:1, and let it run off the page.",
-   "id": "w08"
+   "name": "shape of a story",
+   "text": "graph one card's fortunes: good to bad, beginning to end. one line across the page.",
+   "after": "Kurt Vonnegut, 'Shapes of Stories' (1981)",
+   "url": "https://en.wikipedia.org/wiki/Kurt_Vonnegut",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x42",
    "list": "way",
-   "name": "only the found words",
-   "text": "you may only use words that appear on the found card.",
-   "id": "w09"
+   "name": "i got up",
+   "text": "record the page as one stamped fact: the time you got up, where you are, one detail. nothing else.",
+   "after": "On Kawara, I Got Up (1968-79)",
+   "url": "https://en.wikipedia.org/wiki/On_Kawara",
+   "created": 1793080000000
   },
   {
-   "created": 1793070000000,
+   "id": "x43",
    "list": "way",
-   "name": "wrong medium",
-   "text": "do it as a receipt, a label or a form.",
-   "id": "w10"
+   "name": "one day",
+   "text": "copy out something printed today exactly, letter by letter, including the small print.",
+   "after": "Kenneth Goldsmith, Day (2003)",
+   "url": "https://en.wikipedia.org/wiki/Kenneth_Goldsmith",
+   "created": 1793080000000
+  },
+  {
+   "id": "x44",
+   "list": "way",
+   "name": "convolute",
+   "text": "file fragments under headings like a folder of notes. no sentences joining them.",
+   "after": "Walter Benjamin, The Arcades Project (1927-40)",
+   "url": "https://en.wikipedia.org/wiki/The_Arcades_Project",
+   "created": 1793080000000
+  },
+  {
+   "id": "x45",
+   "list": "way",
+   "name": "strangers' album",
+   "text": "collect pictures that other people threw away or didn't keep. give them a new order.",
+   "after": "Amélie (2001)",
+   "url": "https://en.wikipedia.org/wiki/Am%C3%A9lie",
+   "created": 1793080000000
   }
  ],
  "hist": {
@@ -1014,5 +1349,6 @@ window.SEED = {
    "t": 1793068369951,
    "way": "w02"
   }
- }
+ },
+ "version": 2
 };

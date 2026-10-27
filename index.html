@@ -140,8 +140,8 @@ let S={items:[],hist:{},tab:'today',loaded:false,flash:'',localOnly:false,found:
 /* ---------- storage: the page's own store; this device only if that is unavailable ---------- */
 let DB=null;
 const LKEY='dailypage.local';
-function saveLocal(){if(DB) return; try{localStorage.setItem(LKEY,JSON.stringify({items:S.items,hist:S.hist}))}catch(e){}}
-function loadLocal(){try{const d=JSON.parse(localStorage.getItem(LKEY)||'null'); if(d){S.items=d.items||[]; S.hist=d.hist||{}}}catch(e){}}
+function saveLocal(){if(DB) return; try{localStorage.setItem(LKEY,JSON.stringify({items:S.items,hist:S.hist,seedV:S.seedV||0}))}catch(e){}}
+function loadLocal(){try{const d=JSON.parse(localStorage.getItem(LKEY)||'null'); if(d){S.items=d.items||[]; S.hist=d.hist||{}; S.seedV=d.seedV||0}}catch(e){}}
 async function putItem(it){
   const i=S.items.findIndex(x=>x.id===it.id); if(i>=0) S.items[i]=it; else S.items.push(it);
   if(DB){try{const o=Object.assign({},it);delete o.id;await DB.doc('items/'+it.id).set(o)}catch(e){say("couldn't save. check your connection.")}} else saveLocal();
@@ -156,7 +156,14 @@ async function putHist(k){
 }
 async function connect(){
   loadLocal();
-  if(!S.items.length&&window.SEED){S.items=SEED.items.map(x=>Object.assign({},x));S.hist=Object.assign({},SEED.hist);saveLocal()}
+  if(window.SEED){
+    if(!S.items.length){S.items=SEED.items.map(x=>Object.assign({},x));S.hist=Object.assign({},SEED.hist);S.seedV=SEED.version||1;saveLocal()}
+    else if((S.seedV||1)<(SEED.version||1)){
+      const starter=/^w(0[1-9]|10)$/; S.items=S.items.filter(x=>!(x.list==='way'&&starter.test(x.id)&&!x.updated));
+      const have=new Set(S.items.map(x=>x.id)); SEED.items.forEach(x=>{if(!have.has(x.id)) S.items.push(Object.assign({},x))});
+      S.seedV=SEED.version; saveLocal();
+    }
+  }
   S.loaded=true;S.localOnly=true;render();
 }
 function fallback(){DB=null;loadLocal();S.loaded=true;S.localOnly=true;render()}
@@ -255,7 +262,7 @@ function cardsHtml(k,h,live){
     :`<p class="title dim">${live&&foundWaiting()?'fetching…':'no found card'}</p><p class="src">${live&&!foundWaiting()?'today\'s cards haven\'t arrived. take a line from anything printed near you.':''}${live&&foundPool()?again('again-found'):''}</p>`;
   const kept=h.kept?`<p class="title wrap">${esc(h.kept.text)}</p><p class="src">${h.kept.kind==='note'?'noticed by you':'from '+esc(a||'an interest')}${again('again-kept')}</p>`
     :`<p class="title dim">nothing kept yet</p><p class="src">add a noticing on the kept tab.</p>`;
-  const way=w?`<p class="title wrap">${esc(w.name)}</p><p class="src wrap">${esc(w.text||'')}${again('again-way')}</p>`
+  const way=w?`<p class="title wrap">${esc(w.name)}</p><p class="wrap">${esc(w.text||'')}</p><p class="src wrap">${w.after?'after '+(w.url?`<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.after)}</a>`:esc(w.after)):''}${again('again-way')}</p>`
     :`<p class="title dim">no ways yet</p><p class="src">add one on the ways tab.</p>`;
   return `<section class="blk">
     <div class="card"><span class="lbl">found</span>${found}</div></section>
@@ -267,6 +274,7 @@ function viewToday(){
   if(!S.loaded) return '<p class="dim">opening… <span class="caret" aria-hidden="true"></span></p>';
   const k=today(), h=page(k);
   loadFound(k); if(S.foundState[k]==='none') loadFound(yesterday());
+  if(h&&h.way&&!S.items.some(x=>x.id===h.way)){h.way=pickWay(k); setTimeout(()=>putHist(k),0)}
   if(h&&!h.found&&foundPool()){const f=pickFound(); if(f){h.found=f; setTimeout(()=>putHist(k),0)}}
   const past=Object.keys(S.hist).filter(x=>x<k&&S.hist[x].kept!==undefined).sort().reverse().slice(0,14);
   let top;
@@ -323,10 +331,11 @@ function viewWays(){
     <p class="dim small">a way says how to work, never what it means. borrow from artists you like.</p>
     <label class="line big"><input id="w-name" value="${esc(ed?ed.name:'')}" placeholder="erase" autocomplete="off" aria-label="Name"></label>
     <label class="line"><textarea id="w-text" rows="1" aria-label="Instruction" placeholder="copy the found text out, then cover all but a few words.">${esc(ed?ed.text:'')}</textarea></label>
+    <label class="line"><input id="w-after" value="${esc(ed&&ed.after||'')}" placeholder="after (optional): Tom Phillips, A Humument" autocomplete="off" aria-label="After"></label>
     <div class="opts"><button class="k" data-act="saveway">${ed?'save changes':'add way'}</button>${ed?`<button class="k" data-act="cancel">cancel</button><button class="k" data-act="delway">${S.armDelete?'sure? delete':'delete'}</button>`:''}</div></section>
   <hr class="rule">
   <section class="blk"><div class="lbl">Ways · ${ws.length}</div>
-    ${ws.map(w=>{const r=retired(w),m=mehs(w.id);return `<button class="entry" data-act="editway" data-id="${w.id}"><span class="nm wrap">${esc(w.name)}${r?' <span class="dim">(retired)</span>':''}</span><span class="m wrap">${esc(w.text||'')}${m?` · meh ×${m}`:''}</span></button>${r?`<div style="padding-left:2ch"><button class="k small" data-act="revive" data-id="${w.id}">bring it back</button></div>`:''}`}).join('')}
+    ${ws.map(w=>{const r=retired(w),m=mehs(w.id);return `<button class="entry" data-act="editway" data-id="${w.id}"><span class="nm wrap">${esc(w.name)}${r?' <span class="dim">(retired)</span>':''}</span><span class="m wrap">${esc(w.text||'')}${w.after?' · after '+esc(w.after):''}${m?` · meh ×${m}`:''}</span></button>${r?`<div style="padding-left:2ch"><button class="k small" data-act="revive" data-id="${w.id}">bring it back</button></div>`:''}`}).join('')}
   </section>`;
 }
 
@@ -388,9 +397,9 @@ document.addEventListener('click',async e=>{
       await putItem(n); S.editing=null; say('saved '+n.name+'.'); break}
     case 'delint': if(!S.armDelete){S.armDelete=true;render();break} {const n=nm(S.editing); await dropItem(S.editing); S.editing=null; S.armDelete=false; say('deleted '+n+'.')} break;
     case 'editway': S.editing=b.dataset.id; render(); window.scrollTo(0,0); break;
-    case 'saveway': {const nmv=($('#w-name').value||'').trim(), tx=($('#w-text').value||'').trim(); if(!nmv){say('give it a name.');break}
+    case 'saveway': {const nmv=($('#w-name').value||'').trim(), tx=($('#w-text').value||'').trim(), af=($('#w-after').value||'').trim(); if(!nmv){say('give it a name.');break}
       const old=S.editing&&S.items.find(x=>x.id===S.editing);
-      await putItem(Object.assign({},old||{id:uid(),list:'way',created:Date.now()},{name:nmv,text:tx,updated:Date.now()}));
+      await putItem(Object.assign({},old||{id:uid(),list:'way',created:Date.now()},{name:nmv,text:tx,after:af,updated:Date.now()}));
       S.editing=null; say((old?'updated ':'added ')+nmv+'.'); break}
     case 'delway': if(!S.armDelete){S.armDelete=true;render();break} {const n=nm(S.editing); await dropItem(S.editing); S.editing=null; S.armDelete=false; say('deleted '+n+'.')} break;
     case 'backup': {const blob=new Blob([JSON.stringify({items:S.items,hist:S.hist},null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='daily-page-'+today()+'.json';document.body.appendChild(a);a.click();a.parentNode.removeChild(a);say('backup saved to your downloads.')} break;
