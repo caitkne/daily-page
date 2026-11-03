@@ -59,3 +59,10 @@ https://upload.wikimedia.org/wikipedia/commons/7/7b/Amoriax.jpg?utm_source=commo
 https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Close_up_of_the_surface_of_a_lenticular_print.jpg/960px-Close_up_of_the_surface_of_a_lenticular_print.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
 https://i.ebayimg.com/images/g/by0AAeSwFPtqyvd7/s-l800.jpg
 https://i.ebayimg.com/images/g/ewIAAeSwNIdpC5Kf/s-l800.jpg
+https://www.artic.edu/iiif/2/3e15b6b2-ff5a-0d73-7c97-a1c32984330d/full/843,/0/default.jpg
+https://framemark.vam.ac.uk/collections/2010EL6308/full/!800,800/0/default.jpg
+https://iiif.wellcomecollection.org/image/V0040922/full/!800,800/0/default.jpg
+https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/2019-05-18_Turku_cathedral_07.jpg/960px-2019-05-18_Turku_cathedral_07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/1862_circa%2C_Andr%C3%A9_Adolphe-Eug%C3%A8ne_Disd%C3%A9ri%2C_Les_Jambes_de_l%27opera%2C_Mosa%C3%AFque%2C_Brevet%C3%A9_s.d.g.d.%2C_Album_of_French_Actors%2C_Actresses%2C_and_Dancers%2C_Getty_Images.jpg/960px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://i.ebayimg.com/images/g/lpEAAeSw9ktpvdZh/s-l800.jpg
+https://i.ebayimg.com/images/g/GD8AAeSwzT9oQPFa/s-l800.jpg
