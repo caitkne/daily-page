@@ -122,3 +122,10 @@ https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Attika_token_%281%29.jp
 https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Art_in_dress_%281922%29_%2814758768576%29.jpg/960px-Art_in_dress_%281922%29_%2814758768576%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
 https://i.ebayimg.com/images/g/cU0AAeSw62Jq8~XT/s-l800.jpg
 https://i.ebayimg.com/images/g/J5IAAeSwvEZqkzWi/s-l800.jpg
+https://www.artic.edu/iiif/2/015486a6-ddbc-3a72-12b7-50894a4ff909/full/843,/0/default.jpg
+https://framemark.vam.ac.uk/collections/2015HL0892/full/!800,800/0/default.jpg
+https://iiif.wellcomecollection.org/image/V0015183/full/!800,800/0/default.jpg
+https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/HK_WC_%E7%81%A3%E4%BB%94_Wan_Chai_%E9%A6%99%E6%B8%AF%E6%BC%94%E8%97%9D%E5%AD%B8%E9%99%A2_HKAPA_%E9%96%8B%E6%94%BE%E6%97%A5_Open_Day_%E8%8A%AD%E8%95%BE%E8%88%9E_ballet_%E8%88%9E%E9%9E%8B_dance_shoes_Sunday_March_2023_Px3_04.jpg/960px-HK_WC_%E7%81%A3%E4%BB%94_Wan_Chai_%E9%A6%99%E6%B8%AF%E6%BC%94%E8%97%9D%E5%AD%B8%E9%99%A2_HKAPA_%E9%96%8B%E6%94%BE%E6%97%A5_Open_Day_%E8%8A%AD%E8%95%BE%E8%88%9E_ballet_%E8%88%9E%E9%9E%8B_dance_shoes_Sunday_March_2023_Px3_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://upload.wikimedia.org/wikipedia/commons/8/81/CussinsFearn1965.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+https://i.ebayimg.com/images/g/M7oAAeSwt-ZqQtiB/s-l800.jpg
+https://i.ebayimg.com/images/g/hkkAAeSwk1JqhGeo/s-l800.jpg
