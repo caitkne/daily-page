@@ -129,3 +129,10 @@ https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/HK_WC_%E7%81%A3%E4%BB%9
 https://upload.wikimedia.org/wikipedia/commons/8/81/CussinsFearn1965.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
 https://i.ebayimg.com/images/g/M7oAAeSwt-ZqQtiB/s-l800.jpg
 https://i.ebayimg.com/images/g/hkkAAeSwk1JqhGeo/s-l800.jpg
+https://www.artic.edu/iiif/2/832e689a-9b1f-6edf-da22-a1374b5fb6dc/full/843,/0/default.jpg
+https://framemark.vam.ac.uk/collections/2019LN3860/full/!800,800/0/default.jpg
+https://iiif.wellcomecollection.org/image/V0040327/full/!800,800/0/default.jpg
+https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/-_panoramio_%284391%29.jpg/960px--_panoramio_%284391%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Ancient_board_game.jpg/960px-Ancient_board_game.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://i.ebayimg.com/images/g/rfgAAeSw78Fpd8mB/s-l800.jpg
+https://i.ebayimg.com/images/g/H8AAAeSwQ0Fqe5~-/s-l800.jpg
