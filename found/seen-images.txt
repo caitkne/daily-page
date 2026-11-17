@@ -157,3 +157,10 @@ https://upload.wikimedia.org/wikipedia/commons/5/53/Bundesarchiv_Bild_146-1996-0
 https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/2023-07-02_Station_Voorschoten_defecte_lift_%282%29.jpg/960px-2023-07-02_Station_Voorschoten_defecte_lift_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
 https://i.ebayimg.com/images/g/Lj4AAeSw-Udq7zqg/s-l800.jpg
 https://i.ebayimg.com/images/g/xzAAAeSw69pqkdkr/s-l800.jpg
+https://www.artic.edu/iiif/2/b9be1be9-e78e-1681-723d-197d7983b23b/full/843,/0/default.jpg
+https://framemark.vam.ac.uk/collections/2015HR0095/full/!800,800/0/default.jpg
+https://iiif.wellcomecollection.org/image/b15778939_0002.jp2/full/!800,800/0/default.jpg
+https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/HK_WC_%E7%81%A3%E4%BB%94_Wan_Chai_%E9%A6%99%E6%B8%AF%E6%BC%94%E8%97%9D%E5%AD%B8%E9%99%A2_HKAPA_%E9%96%8B%E6%94%BE%E6%97%A5_Open_Day_%E8%8A%AD%E8%95%BE%E8%88%9E_ballet_%E8%88%9E%E9%9E%8B_dance_shoes_Sunday_March_2023_Px3_01.jpg/960px-HK_WC_%E7%81%A3%E4%BB%94_Wan_Chai_%E9%A6%99%E6%B8%AF%E6%BC%94%E8%97%9D%E5%AD%B8%E9%99%A2_HKAPA_%E9%96%8B%E6%94%BE%E6%97%A5_Open_Day_%E8%8A%AD%E8%95%BE%E8%88%9E_ballet_%E8%88%9E%E9%9E%8B_dance_shoes_Sunday_March_2023_Px3_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Aufkleber_Eigentum_des_Volkes_Inv-Nr.jpg/960px-Aufkleber_Eigentum_des_Volkes_Inv-Nr.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+https://i.ebayimg.com/images/g/PjUAAeSwOqJoPMgt/s-l800.jpg
+https://i.ebayimg.com/images/g/pRQAAeSwx0lq9jjR/s-l800.jpg
